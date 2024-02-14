@@ -45,7 +45,10 @@ const AuthForm = () => {
   };
 
   const socialAction = async (action: string) => {
-    const response = await signIn(action, { redirect: false });
+    const response = await signIn(action, {
+      redirect: false,
+      callbackUrl: '/',
+    });
     if (response?.error) {
       console.log('Invalid credentials!');
     }
