@@ -1,20 +1,25 @@
-import { withAuth } from 'next-auth/middleware';
+import { getToken } from 'next-auth/jwt';
+import { type NextRequestWithAuth, withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
 
-export default withAuth({
-  pages: {
-    signIn: '/login',
-    signOut: '/login',
-  },
-  callbacks: {
-    authorized({ token }) {
-      if (token) {
-        console.log('Logged in');
-        return true;
-      } else return false;
+export default async function middleware(req: NextRequestWithAuth) {
+  const token = await getToken({ req });
+  const isAuthenticated = !!token;
+
+  if (req.nextUrl.pathname.startsWith('/login') && isAuthenticated) {
+    return NextResponse.redirect(new URL('/', req.url));
+  }
+
+  return await withAuth(req, {
+    pages: {
+      signIn: '/login',
+      signOut: '/login',
     },
-  },
-});
+  });
+}
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images).*)'],
+  // Skip all paths that should not be internationalized. This example skips the
+  // folders "api", "_next" and all files with an extension (e.g. favicon.ico)
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
