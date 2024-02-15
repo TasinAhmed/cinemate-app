@@ -9,5 +9,6 @@
     "javascriptreact",
     "html",
     "typescriptreact"
-  ]
+  ],
+  "reactSnippets.settings.importReactOnTop": false
 }
