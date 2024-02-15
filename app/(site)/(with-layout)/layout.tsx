@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Drawer from './Drawer';
-import Navbar from './Navbar';
+import Drawer from '../../components/Drawer';
+import Navbar from '../../components/Navbar';
 import { useSession } from 'next-auth/react';
 
 interface MainLayoutprops {
@@ -13,7 +13,6 @@ const MainLayout = ({ children }: MainLayoutprops) => {
   const hideNavRoutes = ['/login'];
   const pathName = usePathname();
   const session = useSession();
-  console.log(session, 'user session');
 
   return (
     <div className="flex h-full flex-col">
@@ -22,7 +21,7 @@ const MainLayout = ({ children }: MainLayoutprops) => {
           <Navbar user={session.data?.user} />
           <div className="flex flex-1">
             <Drawer user={session.data?.user} />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1 bg-batman-black text-white">{children}</div>
           </div>
         </>
       ) : (
