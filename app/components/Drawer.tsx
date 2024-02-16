@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { type IconType } from 'react-icons';
-import { FaStar, FaUserFriends } from 'react-icons/fa';
+import { FaHome, FaStar, FaUserFriends } from 'react-icons/fa';
 import { MdEvent, MdFavorite, MdMovie } from 'react-icons/md';
 import { PiVideoFill } from 'react-icons/pi';
 
@@ -37,7 +37,7 @@ const DrawerItem = ({
           `flex h-full cursor-pointer items-center gap-x-3 rounded-md px-2 text-white
             transition-colors hover:bg-zinc-700`,
           {
-            'bg-zinc-800': pathname === link,
+            'bg-zinc-950': pathname === link,
           }
         )}
       >
@@ -66,6 +66,7 @@ const Drawer = ({ user }: DrawerProps) => {
         py-4"
     >
       <DrawerItem image={user?.image} label={user?.name} link="/profile" />
+      <DrawerItem icon={FaHome} label={'For You'} fill="#6573ff" link="/" />
       <DrawerItem
         icon={FaUserFriends}
         label={'Friends'}
