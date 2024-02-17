@@ -21,7 +21,9 @@ const MainLayout = ({ children }: MainLayoutprops) => {
           <Navbar user={session.data?.user} />
           <div className="flex flex-1">
             <Drawer user={session.data?.user} />
-            <div className="flex-1 bg-batman-black text-white">{children}</div>
+            <div className="flex-1 bg-batman-black p-8 text-white">
+              {children}
+            </div>
           </div>
         </>
       ) : (

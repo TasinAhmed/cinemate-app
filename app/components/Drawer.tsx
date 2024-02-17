@@ -41,18 +41,18 @@ const DrawerItem = ({
           }
         )}
       >
-        <div className="flex h-9 w-9 items-center justify-center">
-          {Icon && <Icon size={28} fill={fill ?? 'white'} />}
-          {image && (
-            <Image
-              src={image}
-              alt="User profile picture"
-              width={48}
-              height={48}
-              className="rounded-full"
-            />
-          )}
-        </div>
+        {Icon && (
+          <div className="flex h-9 w-9 items-center justify-center">
+            <Icon size={28} fill={fill ?? 'white'} />
+          </div>
+        )}
+        {image && (
+          <div className="avatar">
+            <div className="w-9 rounded-full">
+              {image && <img src={image} />}
+            </div>
+          </div>
+        )}
         <div>{label}</div>
       </div>
     </Link>

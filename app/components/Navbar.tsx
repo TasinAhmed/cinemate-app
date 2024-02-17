@@ -31,13 +31,14 @@ const Navbar = ({ user }: NavbarProps) => {
           <div>Upload</div>
         </button> */}
         <div
-          className="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden
-            rounded-full bg-zinc-700"
+          className="avatar cursor-pointer"
           onClick={async () => {
             await signOut();
           }}
         >
-          {user?.image && <img src={user.image} alt="User profile picture" />}
+          <div className="w-10 rounded-full">
+            {user?.image && <img src={user.image} />}
+          </div>
         </div>
       </div>
     </div>
