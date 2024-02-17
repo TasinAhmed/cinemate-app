@@ -4,11 +4,6 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "html",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "html"],
   "reactSnippets.settings.importReactOnTop": false
 }

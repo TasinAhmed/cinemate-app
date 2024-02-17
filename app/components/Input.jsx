@@ -1,18 +1,4 @@
 import clsx from 'clsx';
-import { type FieldValues, type UseFormRegister } from 'react-hook-form';
-import { type IconType } from 'react-icons';
-
-interface InputProps {
-  type: string;
-  placeholder: string;
-  className?: string;
-  icon?: IconType;
-  toggleShowPassword?: () => void;
-  iconPointer?: boolean;
-  register: UseFormRegister<FieldValues>;
-  id: string;
-  required?: boolean;
-}
 
 const Input = ({
   type,
@@ -24,7 +10,7 @@ const Input = ({
   register,
   id,
   required,
-}: InputProps) => {
+}) => {
   return (
     <div
       className={clsx(

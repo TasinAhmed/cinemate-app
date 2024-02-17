@@ -1,33 +1,12 @@
 import clsx from 'clsx';
-import { type DefaultSession } from 'next-auth';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { type IconType } from 'react-icons';
 import { FaHome, FaStar, FaUserFriends } from 'react-icons/fa';
 import { MdEvent, MdFavorite, MdMovie } from 'react-icons/md';
 import { PiVideoFill } from 'react-icons/pi';
 
-interface DrawerProps {
-  user: DefaultSession['user'];
-}
-
-interface DrawerItemProps {
-  icon?: IconType;
-  label: string | undefined | null;
-  image?: string | undefined | null;
-  fill?: string;
-  link: string;
-}
-
-const DrawerItem = ({
-  icon: Icon,
-  label,
-  image,
-  fill,
-  link,
-}: DrawerItemProps) => {
+const DrawerItem = ({ icon: Icon, label, image, fill, link }) => {
   const pathname = usePathname();
 
   return (
@@ -59,7 +38,7 @@ const DrawerItem = ({
   );
 };
 
-const Drawer = ({ user }: DrawerProps) => {
+const Drawer = ({ user }) => {
   return (
     <div
       className="grid h-full w-60 auto-rows-[52px] border-r border-r-zinc-700 bg-zinc-900 px-4

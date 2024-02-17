@@ -3,11 +3,6 @@
 
 echo '🏗️👷 Styling, testing and building your project before committing'
 
-npm run check-types || (
-  echo '❌ Failed Type check.'
-  false;
-)
-
 npm run check-format || (
   echo '❌ Failed prettier check.'
   false;

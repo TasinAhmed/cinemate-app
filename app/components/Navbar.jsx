@@ -1,12 +1,7 @@
-import { type DefaultSession } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-interface NavbarProps {
-  user: DefaultSession['user'];
-}
-
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = ({ user }) => {
   const router = useRouter();
 
   return (

@@ -4,7 +4,7 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { signIn } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
-import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Input from './Input';
 import AuthSocialButton from './AuthSocialButton';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
@@ -18,11 +18,9 @@ const defaultValues = {
   password: '',
 };
 
-type Views = 'LOGIN' | 'REGISTER';
-
 const AuthForm = () => {
-  const [view, setView] = useState<Views>('LOGIN');
-  const { register, handleSubmit, reset } = useForm<FieldValues>({
+  const [view, setView] = useState('LOGIN');
+  const { register, handleSubmit, reset } = useForm({
     defaultValues,
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +29,7 @@ const AuthForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit = async (data) => {
     await axios.post('/api/register', { ...data });
     await signIn('credentials', { ...data, redirect: false });
   };
@@ -44,7 +42,7 @@ const AuthForm = () => {
     }
   };
 
-  const socialAction = async (action: string) => {
+  const socialAction = async (action) => {
     const response = await signIn(action, {
       redirect: false,
       callbackUrl: '/',

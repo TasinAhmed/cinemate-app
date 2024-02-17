@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import tmdb from '../../../libs/tmdb';
-import Carousel from '@/app/components/Carousel';
+import Carousel from '../../../components/Carousel';
+import React from 'react';
 
 const Movies = () => {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -10,7 +11,6 @@ const Movies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await tmdb.get('/movie/popular');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setPopularMovies(response.data.results);
     };
     void fetchMovies();

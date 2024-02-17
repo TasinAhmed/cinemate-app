@@ -5,11 +5,7 @@ import Drawer from '../../components/Drawer';
 import Navbar from '../../components/Navbar';
 import { useSession } from 'next-auth/react';
 
-interface MainLayoutprops {
-  children: React.ReactNode;
-}
-
-const MainLayout = ({ children }: MainLayoutprops) => {
+const MainLayout = ({ children }) => {
   const hideNavRoutes = ['/login'];
   const pathName = usePathname();
   const session = useSession();
