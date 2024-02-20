@@ -15,9 +15,9 @@ const MainLayout = ({ children }) => {
       {!hideNavRoutes.includes(pathName) ? (
         <>
           <Navbar user={session.data?.user} />
-          <div className="flex flex-1">
+          <div className="ml-60 mt-16 flex-1">
             <Drawer user={session.data?.user} />
-            <div className="flex-1 bg-batman-black p-8 text-white">
+            <div className="h-full max-w-full overflow-hidden bg-batman-black p-8 text-white">
               {children}
             </div>
           </div>

@@ -6,8 +6,8 @@ const Navbar = ({ user }) => {
 
   return (
     <div
-      className="flex h-16 w-full items-center justify-between border-b border-b-zinc-700
-        bg-zinc-900 px-4"
+      className="fixed z-50 flex h-16 w-full items-center justify-between border-b
+        border-b-zinc-700 bg-zinc-900 px-4"
     >
       <div
         className="cursor-pointer text-3xl font-black text-white"

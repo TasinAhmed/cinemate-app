@@ -1,36 +1,94 @@
-import { useEffect, useRef } from 'react';
-import _ from 'lodash';
+import clsx from 'clsx';
+import { useCallback, useRef } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { SwiperSlide, Swiper } from 'swiper/react';
 
 const Carousel = ({ data }) => {
-  const width = 185;
+  const sliderRef = useRef(null);
+  const arrowDiv =
+    'flex h-8 w-8 items-center justify-center bg-white rounded-full';
 
-  const elementRef = useRef(null);
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
 
-  useEffect(() => {
-    if (!elementRef.current) return;
-    const resizeObserver = new ResizeObserver(
-      _.debounce(() => {
-        // Do what you want to do when the size of the element changes
-        console.log('resized!', elementRef?.current?.offsetWidth);
-      }, 500)
-    );
-    resizeObserver.observe(elementRef.current);
-    return () => {
-      resizeObserver.disconnect();
-    }; // clean up
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
   }, []);
 
   return (
-    <div ref={elementRef} className="flex overflow-x-scroll scroll-smooth">
-      {data.map(({ id, poster_path: posterPath }) => (
-        <div key={id} className={`aspect-[185/278] w-[${width}px]`}>
-          <img
-            className="h-full w-full object-cover"
-            src={`https://image.tmdb.org/t/p/w185${posterPath}`}
-          />
-        </div>
-      ))}
-    </div>
+    data && (
+      <div className="relative">
+        <Swiper
+          ref={sliderRef}
+          breakpoints={{
+            // when window width is >= 320px
+            400: {
+              slidesPerView: 2,
+              spaceBetween: 5,
+              slidesPerGroup: 2,
+            },
+            800: {
+              slidesPerView: 4,
+              spaceBetween: 5,
+              slidesPerGroup: 4,
+            },
+            // when window width is >= 480px
+            1000: {
+              slidesPerView: 6,
+              spaceBetween: 10,
+              slidesPerGroup: 6,
+            },
+            // when window width is >= 640px
+            1200: {
+              slidesPerView: 8,
+              spaceBetween: 10,
+              slidesPerGroup: 8,
+            },
+          }}
+        >
+          {data.map((movie) => (
+            <SwiperSlide
+              key={movie.id}
+              className="cursor-pointer overflow-hidden rounded-md border-2 border-transparent
+                object-cover object-center transition-colors hover:border-white"
+            >
+              <img
+                className="h-full w-full transition-transform hover:scale-105"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <button
+          onClick={handlePrev}
+          className="custom-nav-btn absolute left-0 top-0 z-10 h-full w-16 cursor-pointer pl-2"
+          style={{
+            background:
+              'linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent)',
+          }}
+        >
+          <div className={clsx(arrowDiv)}>
+            <FaChevronLeft size={15} fill="black" />
+          </div>
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-0 top-0 z-10 flex h-full w-16 cursor-pointer items-center
+            justify-end pr-2"
+          style={{
+            background:
+              'linear-gradient(to left, rgba(0, 0, 0, 0.8), transparent)',
+          }}
+        >
+          <div className={arrowDiv}>
+            <FaChevronRight size={15} fill="black" />
+          </div>
+        </button>
+      </div>
+    )
   );
 };
 export default Carousel;

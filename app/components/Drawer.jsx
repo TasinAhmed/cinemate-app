@@ -41,8 +41,8 @@ const DrawerItem = ({ icon: Icon, label, image, fill, link }) => {
 const Drawer = ({ user }) => {
   return (
     <div
-      className="grid h-full w-60 auto-rows-[52px] border-r border-r-zinc-700 bg-zinc-900 px-4
-        py-4"
+      className="fixed left-0 top-16 grid h-full w-60 auto-rows-[52px] border-r border-r-zinc-700
+        bg-zinc-900 px-4 py-4"
     >
       <DrawerItem image={user?.image} label={user?.name} link="/profile" />
       <DrawerItem icon={FaHome} label={'For You'} fill="#6573ff" link="/" />

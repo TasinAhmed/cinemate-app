@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import 'swiper/css/bundle';
 import './globals.css';
 import AuthContext from './context/AuthContext';
 
