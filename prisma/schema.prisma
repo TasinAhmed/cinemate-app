@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum FriendshipStatus {
+  UNKNOWN
+  REQUESTED
+  PENDING
+  FRIENDS
+}
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -30,24 +37,29 @@ model Account {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?   @unique
-  hashedPassword String?
-  emailVerified  DateTime?
-  image          String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  accounts       Account[]
-  posts          Post[]
-  friends        Friend[]
+  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String?
+  email                  String?   @unique
+  hashedPassword         String?
+  emailVerified          DateTime?
+  image                  String?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  accounts               Account[]
+  posts                  Post[]
+  sentFriendRequests     Friend[]  @relation("SentFriendRequests")
+  receivedFriendRequests Friend[]  @relation("ReceivedFriendRequests")
+  friends                Friend[]  @relation("UserFriends")
 }
 
 model Friend {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @db.ObjectId
-  status Int
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  requester   User             @relation("SentFriendRequests", fields: [requesterId], references: [id])
+  requesterId String           @db.ObjectId
+  receiver    User             @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
+  receiverId  String           @db.ObjectId
+  status      FriendshipStatus @default(UNKNOWN)
+  user        User?            @relation("UserFriends", fields: [requesterId], references: [id])
 }
 
 model Post {
