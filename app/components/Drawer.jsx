@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
@@ -28,7 +29,7 @@ const DrawerItem = ({ icon: Icon, label, image, fill, link }) => {
         {image && (
           <div className="avatar">
             <div className="w-9 rounded-full">
-              {image && <img src={image} />}
+              {image && <img src={image} referrerPolicy="no-referrer" />}
             </div>
           </div>
         )}
@@ -44,7 +45,11 @@ const Drawer = ({ user }) => {
       className="fixed left-0 top-16 grid h-full w-60 auto-rows-[52px] border-r border-r-zinc-700
         bg-zinc-900 px-4 py-4"
     >
-      <DrawerItem image={user?.image} label={user?.name} link="/profile" />
+      <DrawerItem
+        image={user?.image}
+        label={user?.name}
+        link={`/profile/${user?.id}`}
+      />
       <DrawerItem icon={FaHome} label={'For You'} fill="#6573ff" link="/" />
       <DrawerItem
         icon={FaUserFriends}

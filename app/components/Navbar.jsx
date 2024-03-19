@@ -32,7 +32,9 @@ const Navbar = ({ user }) => {
           }}
         >
           <div className="w-10 rounded-full">
-            {user?.image && <img src={user.image} />}
+            {user?.image && (
+              <img src={user.image} referrerPolicy="no-referrer" />
+            )}
           </div>
         </div>
       </div>
