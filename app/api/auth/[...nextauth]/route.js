@@ -5,7 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '../../../../app/libs/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -39,11 +39,21 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET ?? '',
     }),
   ],
+  callbacks: {
+    session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
