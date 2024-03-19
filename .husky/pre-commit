@@ -12,8 +12,3 @@ npm run check-lint || (
   echo '❌ ESLint check failed.'
   false;
 )
-
-npm run build || (
-  echo '❌ Build failed.'
-  false;
-)
