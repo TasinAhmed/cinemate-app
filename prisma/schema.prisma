@@ -11,10 +11,9 @@ datasource db {
 }
 
 enum FriendshipStatus {
-  UNKNOWN
   REQUESTED
   PENDING
-  FRIENDS
+  ACCEPTED
 }
 
 model Account {
@@ -49,7 +48,6 @@ model User {
   posts                  Post[]
   sentFriendRequests     Friend[]  @relation("SentFriendRequests")
   receivedFriendRequests Friend[]  @relation("ReceivedFriendRequests")
-  friends                Friend[]  @relation("UserFriends")
 }
 
 model Friend {
@@ -58,8 +56,7 @@ model Friend {
   requesterId String           @db.ObjectId
   receiver    User             @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
   receiverId  String           @db.ObjectId
-  status      FriendshipStatus @default(UNKNOWN)
-  user        User?            @relation("UserFriends", fields: [requesterId], references: [id])
+  status      FriendshipStatus
 }
 
 model Post {
