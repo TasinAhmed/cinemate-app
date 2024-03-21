@@ -51,12 +51,12 @@ model User {
 }
 
 model Friend {
-  id          String           @id @default(auto()) @map("_id") @db.ObjectId
-  requester   User             @relation("SentFriendRequests", fields: [requesterId], references: [id])
-  requesterId String           @db.ObjectId
-  receiver    User             @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
-  receiverId  String           @db.ObjectId
-  status      FriendshipStatus
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  sender     User             @relation("SentFriendRequests", fields: [senderId], references: [id])
+  senderId   String           @db.ObjectId
+  receiver   User             @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
+  receiverId String           @db.ObjectId
+  status     FriendshipStatus
 }
 
 model Post {
