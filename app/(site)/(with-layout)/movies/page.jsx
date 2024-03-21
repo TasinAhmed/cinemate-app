@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import tmdb from '../../../libs/tmdb';
+import tmdb from '@/libs/tmdb';
 import React from 'react';
-import Carousel from '../../../components/Carousel';
+import Carousel from '@/components/Carousel';
 import async from 'async';
 
 const Movies = () => {

@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Drawer from '../../components/Drawer';
-import Navbar from '../../components/Navbar';
+import Drawer from '@/components/Drawer';
+import Navbar from '@/components/Navbar';
 import { useSession } from 'next-auth/react';
 
 const MainLayout = ({ children }) => {
