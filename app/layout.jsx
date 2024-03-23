@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import 'swiper/css/bundle';
 import './globals.css';
 import AuthContext from './context/AuthContext';
+import GlobalContext, { GlobalContextProvider } from './context/GlobalContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,7 +15,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthContext>{children}</AuthContext>
+        <AuthContext>
+          <GlobalContextProvider>{children}</GlobalContextProvider>
+        </AuthContext>
       </body>
     </html>
   );
