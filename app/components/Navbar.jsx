@@ -1,8 +1,10 @@
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 const Navbar = ({ user }) => {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div
@@ -16,6 +18,18 @@ const Navbar = ({ user }) => {
         }}
       >
         CM
+      </div>
+      <div>
+        <input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            return (
+              e.key === 'Enter' &&
+              router.push(`/results?search_query=${searchQuery}`)
+            );
+          }}
+        />
       </div>
       <div className="flex items-center gap-x-4">
         {/* <button
