@@ -55,7 +55,7 @@ const Movies = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="m-auto w-full max-w-7xl p-8">
       {movies[0].data.length > 0 &&
         movies.map((movie, index) => (
           <div key={index}>

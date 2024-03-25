@@ -1,9 +1,12 @@
+import { movieImagePath } from '@/libs/movieImagePath';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { useCallback, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { SwiperSlide, Swiper } from 'swiper/react';
 
 const Carousel = ({ data }) => {
+  const router = useRouter();
   const sliderRef = useRef(null);
   const arrowDiv =
     'flex h-8 w-8 items-center justify-center bg-white rounded-full';
@@ -31,33 +34,36 @@ const Carousel = ({ data }) => {
               slidesPerGroup: 2,
             },
             800: {
-              slidesPerView: 4,
+              slidesPerView: 3,
               spaceBetween: 5,
-              slidesPerGroup: 4,
+              slidesPerGroup: 3,
             },
             // when window width is >= 480px
             1000: {
-              slidesPerView: 6,
+              slidesPerView: 5,
               spaceBetween: 10,
-              slidesPerGroup: 6,
+              slidesPerGroup: 5,
             },
             // when window width is >= 640px
             1200: {
-              slidesPerView: 8,
+              slidesPerView: 6,
               spaceBetween: 10,
-              slidesPerGroup: 8,
+              slidesPerGroup: 6,
             },
           }}
         >
           {data.map((movie) => (
             <SwiperSlide
+              onClick={() => {
+                router.push(`/movies/${movie.id}`);
+              }}
               key={movie.id}
               className="cursor-pointer overflow-hidden rounded-md border-2 border-transparent
                 object-cover object-center transition-colors hover:border-white"
             >
               <img
                 className="h-full w-full transition-transform hover:scale-105"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={movieImagePath(movie.poster_path)}
               />
             </SwiperSlide>
           ))}

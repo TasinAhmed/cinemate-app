@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import tmdb from '@/libs/tmdb';
 import LinesEllipsis from 'react-lines-ellipsis';
+import { movieImagePath } from '@/libs/movieImagePath';
 
 const Results = () => {
   const searchParams = useSearchParams();
@@ -37,7 +38,7 @@ const Results = () => {
   }, [searchQuery]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center p-8">
       <div className="grid w-full max-w-2xl gap-y-6">
         {data.users?.length > 0 && (
           <div
@@ -65,12 +66,13 @@ const Results = () => {
               className="grid h-[219.5px] cursor-pointer grid-rows-1 gap-x-6 overflow-ellipsis rounded-lg
                 bg-zinc-900 p-4 transition-transform hover:scale-[102%]"
               style={{ gridTemplateColumns: '125px 1fr' }}
+              onClick={() => router.push(`/movies/${movie.id}`)}
             >
               <div className="max-w-full overflow-hidden rounded-lg object-cover object-center">
                 <img
                   src={
                     movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      ? movieImagePath(movie.poster_path)
                       : '/images/poster-placeholder.png'
                   }
                 />
